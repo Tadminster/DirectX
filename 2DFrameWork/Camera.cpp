@@ -2,10 +2,10 @@
 
 Camera::Camera()
 {
-    //Ã¹ Ä«¸Ş¶ó À§Ä¡
+    //ì²« ì¹´ë©”ë¼ ìœ„ì¹˜
     position.x = 0.0f;
     position.y = 0.0f;
-    //ºäÆ÷Æ®
+    //ë·°í¬íŠ¸
     viewport.width = app.GetWidth();
     viewport.height = app.GetHeight();
     D3D->GetDC()->RSSetViewports(1, viewport.Get11());
@@ -13,9 +13,9 @@ Camera::Camera()
 
 void Camera::Set()
 {
-    //ºäÇà·Ä ¿ªÀÌµ¿Çà·Ä
+    //ë·°í–‰ë ¬ ì—­ì´ë™í–‰ë ¬
     V = Matrix::CreateTranslation(-position.x, -position.y, 0.0f);
-    //ÇÁ·ÎÁ§¼ÇÇà·Ä Åõ¿µÇà·Ä
+    //í”„ë¡œì ì…˜í–‰ë ¬ íˆ¬ì˜í–‰ë ¬
     P = Matrix::CreateOrthographic(app.GetWidth(), app.GetHeight(), 0.0f, 10.0f);
 
     VP = V * P;

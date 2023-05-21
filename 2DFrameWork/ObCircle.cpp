@@ -76,21 +76,21 @@ void ObCircle::CreateStaticMember()
             Vertex[i * 3 + 2].color = Color(color, 0.0f, 1.0f, 1.0f);
         }
     }
-    //Á¤Á¡µéÀÌ ¹öÆÛ·Î ¿Å°ÜÁö´Â ÄÚµå
+    //ì •ì ë“¤ì´ ë²„í¼ë¡œ ì˜®ê²¨ì§€ëŠ” ì½”ë“œ
     {
         D3D11_BUFFER_DESC desc;
-        desc = { 0 }; //¸â¹öº¯¼ö ÀüºÎ 0À¸·Î
-        desc.Usage = D3D11_USAGE_DEFAULT;//¹öÆÛ¸¦ ÀĞ°í ¾²´Â ¹æ¹ı
-        desc.ByteWidth = sizeof(VertexPC) * 360 * 3; //¹öÆÛ Å©±â (¹ÙÀÌÆ®)ÀÔ´Ï´Ù.
-        desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//¹öÆÛ°¡ ÆÄÀÌÇÁ ¶óÀÎ¿¡ ¹ÙÀÎµùµÇ´Â ¹æ¹ıÀ» ½Äº°ÇÏ½Ê½Ã¿À
+        desc = { 0 }; //ë©¤ë²„ë³€ìˆ˜ ì „ë¶€ 0ìœ¼ë¡œ
+        desc.Usage = D3D11_USAGE_DEFAULT;//ë²„í¼ë¥¼ ì½ê³  ì“°ëŠ” ë°©ë²•
+        desc.ByteWidth = sizeof(VertexPC) * 360 * 3; //ë²„í¼ í¬ê¸° (ë°”ì´íŠ¸)ì…ë‹ˆë‹¤.
+        desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//ë²„í¼ê°€ íŒŒì´í”„ ë¼ì¸ì— ë°”ì¸ë”©ë˜ëŠ” ë°©ë²•ì„ ì‹ë³„í•˜ì‹­ì‹œì˜¤
 
         D3D11_SUBRESOURCE_DATA data = { 0 };
-        //ÇÏÀ§ ¸®¼Ò½º¸¦ ÃÊ±âÈ­ÇÏ±âÀ§ÇÑ µ¥ÀÌÅÍ¸¦ ÁöÁ¤ÇÕ´Ï´Ù.
+        //í•˜ìœ„ ë¦¬ì†ŒìŠ¤ë¥¼ ì´ˆê¸°í™”í•˜ê¸°ìœ„í•œ ë°ì´í„°ë¥¼ ì§€ì •í•©ë‹ˆë‹¤.
         data.pSysMem = Vertex;
-        //ÃÊ±âÈ­ µ¥ÀÌÅÍÀÇ Æ÷ÀÎÅÍ.
+        //ì´ˆê¸°í™” ë°ì´í„°ì˜ í¬ì¸í„°.
 
-        //¹öÆÛ ¸¸µé±â
-        //                                           ¼­¼ú    ¿øº»       º¹»ç´ë»ó   
+        //ë²„í¼ ë§Œë“¤ê¸°
+        //                                           ì„œìˆ     ì›ë³¸       ë³µì‚¬ëŒ€ìƒ   
         HRESULT hr = D3D->GetDevice()->CreateBuffer(&desc, &data, &fillVertexBuffer);
         assert(SUCCEEDED(hr));
 
@@ -100,7 +100,7 @@ void ObCircle::CreateStaticMember()
 
     Vertex = new VertexPC[361];
 
-    //µÎ°¡Áö ·£´ıÇÑ »ö ¸¸µé±â
+    //ë‘ê°€ì§€ ëœë¤í•œ ìƒ‰ ë§Œë“¤ê¸°
     for (UINT i = 0; i < 361; i++)
     {
         Vertex[i].color = Color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -112,16 +112,16 @@ void ObCircle::CreateStaticMember()
     {
         D3D11_BUFFER_DESC desc;
         desc = { 0 };
-        desc.Usage = D3D11_USAGE_DEFAULT;//¹öÆÛ¸¦ ÀĞ°í ¾²´Â ¹æ¹ı
-        desc.ByteWidth = sizeof(VertexPC) * 361; //¹öÆÛ Å©±â (¹ÙÀÌÆ®)ÀÔ´Ï´Ù.
-        desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//¹öÆÛ°¡ ÆÄÀÌÇÁ ¶óÀÎ¿¡ ¹ÙÀÎµùµÇ´Â ¹æ¹ıÀ» ½Äº°ÇÏ½Ê½Ã¿À
+        desc.Usage = D3D11_USAGE_DEFAULT;//ë²„í¼ë¥¼ ì½ê³  ì“°ëŠ” ë°©ë²•
+        desc.ByteWidth = sizeof(VertexPC) * 361; //ë²„í¼ í¬ê¸° (ë°”ì´íŠ¸)ì…ë‹ˆë‹¤.
+        desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//ë²„í¼ê°€ íŒŒì´í”„ ë¼ì¸ì— ë°”ì¸ë”©ë˜ëŠ” ë°©ë²•ì„ ì‹ë³„í•˜ì‹­ì‹œì˜¤
 
         D3D11_SUBRESOURCE_DATA data = { 0 };
-        //ÇÏÀ§ ¸®¼Ò½º¸¦ ÃÊ±âÈ­ÇÏ±âÀ§ÇÑ µ¥ÀÌÅÍ¸¦ ÁöÁ¤ÇÕ´Ï´Ù.
+        //í•˜ìœ„ ë¦¬ì†ŒìŠ¤ë¥¼ ì´ˆê¸°í™”í•˜ê¸°ìœ„í•œ ë°ì´í„°ë¥¼ ì§€ì •í•©ë‹ˆë‹¤.
         data.pSysMem = Vertex;
-        //ÃÊ±âÈ­ µ¥ÀÌÅÍÀÇ Æ÷ÀÎÅÍ.
+        //ì´ˆê¸°í™” ë°ì´í„°ì˜ í¬ì¸í„°.
 
-        //¹öÆÛ ¸¸µé±â
+        //ë²„í¼ ë§Œë“¤ê¸°
         HRESULT hr = D3D->GetDevice()->CreateBuffer(&desc, &data, &vertexBuffer);
         assert(SUCCEEDED(hr));
 
@@ -163,10 +163,10 @@ void ObCircle::Render()
     }
     else
     {
-        D3D->GetDC()->IASetVertexBuffers(0,//ÀÔ·Â½½·Ô(16~32°³±îÁö ¼³Á¤°¡´É)
-            1,//ÀÔ·Â½½·Ô¿¡ ºÙÀÌ°íÀÚ ÇÏ´Â ¹öÆÛÀÇ °¹¼ö
+        D3D->GetDC()->IASetVertexBuffers(0,//ì…ë ¥ìŠ¬ë¡¯(16~32ê°œê¹Œì§€ ì„¤ì •ê°€ëŠ¥)
+            1,//ì…ë ¥ìŠ¬ë¡¯ì— ë¶™ì´ê³ ì í•˜ëŠ” ë²„í¼ì˜ ê°¯ìˆ˜
             &vertexBuffer,
-            &stride,//Á¤Á¡¹öÆÛÀÇ ÇÑ ¿ø¼ÒÀÇ ¹ÙÀÌÆ®´ÜÀ§ Å©±â
+            &stride,//ì •ì ë²„í¼ì˜ í•œ ì›ì†Œì˜ ë°”ì´íŠ¸ë‹¨ìœ„ í¬ê¸°
             &offset);
         D3D->GetDC()->IASetPrimitiveTopology
         (D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);

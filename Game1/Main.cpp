@@ -51,14 +51,14 @@ void Main::Update()
     ImGui::Text("1p move: [W][A][S][D] \n");
     ImGui::Text("2p move: [UP][DOWN][LEFT][RIGHT]\n");
 
-    // ÇÃ·¹ÀÌ¾î ¾÷µ¥ÀÌÆ®, ÀÌµ¿, Ãæµ¹Ã³¸®
+    // í”Œë ˆì´ì–´ ì—…ë°ì´íŠ¸, ì´ë™, ì¶©ëŒì²˜ë¦¬
 	for (auto& player : player)
 		{
 			player->Update();
 			ball->collision(player);
 		}
 
-    // ÇÃ·¹ÀÌ¾î ÀÌµ¿
+    // í”Œë ˆì´ì–´ ì´ë™
     if (INPUT->KeyPress('W'))
             player[0]->Control(UP);
     if (INPUT->KeyPress('S'))
@@ -77,11 +77,11 @@ void Main::Update()
     if (INPUT->KeyPress(VK_RIGHT))
         player[1]->Control(RIGHT);
 
-    // °ñ´ë ¾÷µ¥ÀÌÆ®
+    // ê³¨ëŒ€ ì—…ë°ì´íŠ¸
     for (auto& goalpost : goalpost)
         goalpost->Update();
     
-    // µæÁ¡Ã³¸®
+    // ë“ì ì²˜ë¦¬
     if (ball->collision(goalpost[0]))
     {
         player[1]->score++;
@@ -100,9 +100,9 @@ void Main::Update()
 
 void Main::LateUpdate()
 {
-    // º¼ÀÌ ¸Ê ¹ÛÀ» ¹þ¾î³¯ ¶§ Ãæµ¹Ã³¸®
+    // ë³¼ì´ ë§µ ë°–ì„ ë²—ì–´ë‚  ë•Œ ì¶©ëŒì²˜ë¦¬
     int map_side{ 10 }; //
-    // xÃà
+    // xì¶•
     if (ball->GetWorldPos().x < -app.GetHalfWidth() + map_side)
     {
         ball->SetWorldPosX(-app.GetHalfWidth() + map_side);
@@ -115,7 +115,7 @@ void Main::LateUpdate()
         ball->reflection_y();
         // ball->rotation.z = atan2f(ball->get_right().y, -ball->get_right().x);
     }
-    // yÃà
+    // yì¶•
     if (ball->GetWorldPos().y < -app.GetHalfHeight() + map_side)
     {
         ball->SetWorldPosY(-app.GetHalfHeight() + map_side);
