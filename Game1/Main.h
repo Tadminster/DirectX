@@ -1,11 +1,19 @@
 #pragma once
+#define number_star 500
 
 class Main : public Scene
 {
 private:
-	class Player* player[2];
-	class Player* goalpost[2];
-	class Ball* ball;
+	// 지형
+	class ObStar* bg_star[number_star];
+	class Ob_floor* floor;
+
+	// 플레이어
+	class Player* player;
+	class Gun_pistol* pistol;
+
+	//class Ball* ball;
+	//class Player* goalpost[2];
 
 public:
 	Main();

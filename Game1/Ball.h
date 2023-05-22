@@ -9,6 +9,7 @@ public:
 	Ball();
 	virtual ~Ball();
 	void Init(Vector2 spawn, bool isLeft);
+
 	void Control();
 	void Update() override;
 	void Render() override;

@@ -9,6 +9,13 @@
     <ClInclude Include="Ball.h">
       <Filter>GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Bullet_proto.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Gun_pistol.h">
+      <Filter>GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Ob_floor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -18,6 +25,13 @@
     <ClCompile Include="Ball.cpp">
       <Filter>GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet_proto.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Gun_pistol.cpp">
+      <Filter>GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Ob_floor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObject">
