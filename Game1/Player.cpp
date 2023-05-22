@@ -5,7 +5,7 @@
 Player::Player()
 {
     this->hand = 1;
-    this->speed = 250;
+    this->speed = 350;
     this->jump_power = 130.f;
     this->jump_startPoint = this->GetWorldPos().y;
     this->jump_status = false;
@@ -36,12 +36,16 @@ void Player::Init(Vector2 spawn, bool isLeft)
 
 void Player::Control()
 {
+    // 점프 실행 중..
     if (jump_status && this->GetWorldPos().y < jump_startPoint + this->jump_power)
     {
+        // 점프후 낙하
         this->MoveWorldPos(UP * DELTA * 700.f);
         if (this->GetWorldPos().y +5.f >= jump_startPoint + this->jump_power)
             jump_status = false;
     }
+
+
     // 이동
     //if (INPUT->KeyPress('W'))
     //    this->MoveWorldPos(UP * DELTA * this->speed);

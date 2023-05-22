@@ -77,6 +77,7 @@ void Main::Update()
     ImGui::Text("Keys\n");
     ImGui::Text("move: [A][S] \n");
     ImGui::Text("jump: [SPACE] \n");
+    ImGui::Text("fire: [LBUTTON] \n");
 
     // 배경 업데이트
     for (int i = 0; i < number_star; i++)
