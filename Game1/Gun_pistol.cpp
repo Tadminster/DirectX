@@ -24,8 +24,6 @@ Gun_pistol::~Gun_pistol()
 void Gun_pistol::Update()
 {
     ObRect::Update();
-    // 발사된 탄 Update
-    Gun_pistol::Update_Bullets();
 }
 
 void Gun_pistol::Render()
@@ -42,9 +40,6 @@ void Gun_pistol::Render()
     }
 
     ObRect::Render();
-
-    // 탄 Render
-    Gun_pistol::Render_Bullets();
 }
 
 bool Gun_pistol::Fire(class Player* shooter)
@@ -56,7 +51,7 @@ bool Gun_pistol::Fire(class Player* shooter)
     if (this->ammo_current > 0 && elapsedTime >= this->timeSinceLastTime)
     {
         // 총구 위치 계산
-        Vector2 muzzle = Vector2(this->GetWorldPos() + shooter->GetRight() * scale.x);
+        Vector2 muzzle = Vector2(this->GetWorldPos() + this->GetRight() * scale.x);
         // 탄각 계산(플레이어가 바라보는 방향)
         // float rotation_z{ atan2f(shooter->get_right().y, shooter->get_right().x) };
 
@@ -64,8 +59,8 @@ bool Gun_pistol::Fire(class Player* shooter)
         const Bullet_proto bullet
         (
             muzzle,
-            shooter->GetRight(),
-            this->ammo_speed * DELTA,
+            this->GetRight(),
+            this->ammo_speed,
             this->range
         );
         //벡터에 탄 push
@@ -90,40 +85,41 @@ void Gun_pistol::Update_Bullets()
         // ammo.pos += Vector2(0, ammo.gravity_sin);
         // ammo.gravity_sin += ammo.gravity_cos * DELTA;
 
-        ammo.gravityForce += 500.0f * DELTA;
+        //ammo.gravityForce += 0.0f * DELTA;
 
-        Vector2 velocity = (ammo.shooting_Dir * ammo.pressPower
-            + ammo.gravityDir * ammo.gravityForce);
-        ammo.MoveWorldPos(velocity * DELTA);
+        //Vector2 velocity = ( 
+        //    ammo.shooting_Dir * ammo.pressPower
+        //    + ammo.gravityDir * ammo.gravityForce);
+        //ammo.MoveWorldPos(velocity * DELTA);
 
         // 탄이 맵 밖을 벗어났으면
-        int map_side{ 10 };
-        // x축
-        if (ammo.GetLocalPos().x < 0 + map_side)
-        {
-            ammo.SetWorldPosX(0 + map_side);
-            ammo.reflection_y();
-            // ammo.rotation.z = atan2f(ammo.get_right().y, -ammo.get_right().x);
-        }
-        else if (ammo.GetLocalPos().x > 800 - map_side)
-        {
-            ammo.SetWorldPosX(800 - map_side);
-            ammo.reflection_y();
-            // ammo.rotation.z = atan2f(ammo.get_right().y, -ammo.get_right().x);
-        }
-        // y축
-        if (ammo.GetLocalPos().y < 0 + map_side)
-        {
-            ammo.SetWorldPosY(0 + map_side);
-            ammo.reflection_x();
-            // ammo.rotation.z = atan2f(-ammo.get_right().y, ammo.get_right().x);
-        }
-        else if (ammo.GetLocalPos().y > 800 - map_side)
-        {
-            ammo.SetWorldPosY(800 - map_side - 5);
-            ammo.reflection_x();
-            // ammo.rotation.z = atan2f(-ammo.get_right().y, ammo.get_right().x);
-        }
+        //int map_side{ 10 };
+        //// x축
+        //if (ammo.GetLocalPos().x < 0 + map_side)
+        //{
+        //    ammo.SetWorldPosX(0 + map_side);
+        //    ammo.reflection_y();
+        //    // ammo.rotation.z = atan2f(ammo.get_right().y, -ammo.get_right().x);
+        //}
+        //else if (ammo.GetLocalPos().x > 800 - map_side)
+        //{
+        //    ammo.SetWorldPosX(800 - map_side);
+        //    ammo.reflection_y();
+        //    // ammo.rotation.z = atan2f(ammo.get_right().y, -ammo.get_right().x);
+        //}
+        //// y축
+        //if (ammo.GetLocalPos().y < 0 + map_side)
+        //{
+        //    ammo.SetWorldPosY(0 + map_side);
+        //    ammo.reflection_x();
+        //    // ammo.rotation.z = atan2f(-ammo.get_right().y, ammo.get_right().x);
+        //}
+        //else if (ammo.GetLocalPos().y > 800 - map_side)
+        //{
+        //    ammo.SetWorldPosY(800 - map_side - 5);
+        //    ammo.reflection_x();
+        //    // ammo.rotation.z = atan2f(-ammo.get_right().y, ammo.get_right().x);
+        //}
 
         // 탄의 정보 업데이트
         ammo.Update();
@@ -139,8 +135,8 @@ void Gun_pistol::Update_Bullets()
         (
             bullets.begin(),
             bullets.end(),
-            [](const Bullet_proto& b
-                ) { return b.hasTraveledTooFar(); }),
+            [](const Bullet_proto& b) { return b.hasTraveledTooFar(); }
+        ),
         bullets.end()
     );
 }

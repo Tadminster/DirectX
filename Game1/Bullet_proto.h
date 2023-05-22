@@ -5,8 +5,6 @@ class Bullet_proto : public ObRect
 protected:
 
 public:
-    Vector2         Pos_Current;            // 현재 위치(local)
-    Vector2         Pos_Initial;            // 처음 발사된 위치
     int             Hp;                     // 체력
     Vector2         shooting_Dir;           // 방향
     float           speed;                  // 속도
@@ -23,7 +21,6 @@ public:
     Bullet_proto(Vector2 pos, Vector2 direction, float speed, float range);
 
     void Update() override;
-    void Render() override;
 
     /* 탄이 이동한 거리가 range를 넘었는지 확인 */
     bool hasTraveledTooFar() const { return traveledDistance >= range; }

@@ -6,7 +6,7 @@ Player::Player()
 {
     this->hand = 1;
     this->speed = 250;
-    this->jump_power = 150.f;
+    this->jump_power = 130.f;
     this->jump_startPoint = this->GetWorldPos().y;
     this->jump_status = false;
 
@@ -38,7 +38,7 @@ void Player::Control()
 {
     if (jump_status && this->GetWorldPos().y < jump_startPoint + this->jump_power)
     {
-        this->MoveWorldPos(UP * DELTA * this->speed * 2.f);
+        this->MoveWorldPos(UP * DELTA * 700.f);
         if (this->GetWorldPos().y +5.f >= jump_startPoint + this->jump_power)
             jump_status = false;
     }
@@ -59,11 +59,11 @@ void Player::Control()
     }
 
     // 격발
-  /*  if (INPUT->KeyPress(VK_LBUTTON))
+    if (INPUT->KeyPress(VK_LBUTTON))
     {
         if (this->hand == 1)
             pistol->Fire(this);
-    }*/
+    }
 
     // 무기 스왑
     if (INPUT->KeyDown('1'))
@@ -104,6 +104,7 @@ void Player::Update()
     ObRect::Update();
     // 무기와 탄 UPDATE
     this->pistol->Update();
+    this->pistol->Update_Bullets();
 }
 
 void Player::Render()
@@ -112,5 +113,6 @@ void Player::Render()
     ObRect::Render();
     // 무기와 탄 RENDER
     this->pistol->Render();
+    this->pistol->Render_Bullets();
 }
 

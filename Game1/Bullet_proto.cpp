@@ -1,10 +1,9 @@
 ﻿#include "stdafx.h"
 #include "Bullet_proto.h"
 
-// obj_weapon_bullet::obj_weapon_bullet(Vector2 pos, float speed, float range, float rotation_z, float charging_scale)
 Bullet_proto::Bullet_proto(Vector2 pos, Vector2 direction, float speed, float range)
     : speed(speed), range(range), traveledDistance(0.f), Damage(5), 
-    Pos_Initial(pos), Hp(1), pressPower(100.f * DELTA)
+     Hp(1), pressPower(500.f)
 {
     // 탄의 생성위치
     this->SetWorldPos(pos);
@@ -14,7 +13,6 @@ Bullet_proto::Bullet_proto(Vector2 pos, Vector2 direction, float speed, float ra
     this->scale.y = 5.f;
 
     // 탄의 각도
-    // this->rotation.z = rotation_z;
     this->shooting_Dir = direction;
 
     // 중력
@@ -27,17 +25,21 @@ Bullet_proto::Bullet_proto(Vector2 pos, Vector2 direction, float speed, float ra
 
 void Bullet_proto::Update()
 {
+    this->gravityForce += 0.0f * DELTA;
+
+    // V1_발사파워, 중력적용
+    //Vector2 velocity = ( 
+    //this->shooting_Dir * this->pressPower + this->gravityDir * this->gravityForce);
+
+    // V2_탄속만 적용
+    Vector2 velocity = (this->shooting_Dir * this->speed);
+
+    this->MoveWorldPos(velocity * DELTA);
+
     ObRect::Update();
 
     // 탄이 이동한 거리 계산
-    this->Pos_Current.x += speed;
-    this->Pos_Current.y += speed;
-    traveledDistance += std::sqrt(std::pow(speed, 2) + std::pow(speed, 2));
-}
-
-void Bullet_proto::Render()
-{
-    ObRect::Render();
+    traveledDistance += std::sqrt(std::pow(speed * DELTA, 2) + std::pow(speed * DELTA, 2));
 }
 
 bool Bullet_proto::hasIntersect(class GameObject* target)
