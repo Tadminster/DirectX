@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Player.h"
 #include "Ball.h"
 #include "Gun_pistol.h"
@@ -7,7 +7,7 @@
 
 Main::Main()
 {
-    // ¹è°æ
+    // ë°°ê²½
     for (int i = 0; i < number_star; i++)
     {
         bg_star[i] = new ObStar();
@@ -17,10 +17,10 @@ Main::Main()
     }
     floor = new Ob_floor();
 
-    // ÇÃ·¹ÀÌ¾î
+    // í”Œë ˆì´ì–´
 	player = new Player();
 
-    // ÃÑ±â·ù
+    // ì´ê¸°ë¥˜
     pistol = new Gun_pistol();
     pistol->SetParentRT(*player);
 
@@ -45,16 +45,16 @@ Main::~Main()
 void Main::Init()
 {
 	player->Init(Vector2(-app.GetHalfWidth() + player->scale.x, -app.GetHalfHeight() + player->scale.y), false);
-    /*goalpost[0]->Init(Vector2(-app.GetHalfWidth(), 0), false);
-    goalpost[1]->Init(Vector2(app.GetHalfWidth(), 0), true);
-    for (auto& goalpost : goalpost)
-    {
-        goalpost->hasAxis = false;
-        goalpost->scale = Vector2(100.f, 100.f);
-    }
+ //   goalpost[0]->Init(Vector2(-app.GetHalfWidth(), 0), false);
+ //   goalpost[1]->Init(Vector2(app.GetHalfWidth(), 0), true);
+ //   for (auto& goalpost : goalpost)
+ //   {
+ //       goalpost->hasAxis = false;
+ //       goalpost->scale = Vector2(100.f, 100.f);
+ //   }
 
-	ball->Init(Vector2(0, 0), true);
-    ball->speed = 0;*/
+	//ball->Init(Vector2(0, 0), true);
+ //   ball->speed = 0;
 
 }
 
@@ -78,23 +78,19 @@ void Main::Update()
     ImGui::Text("move: [A][S] \n");
     ImGui::Text("jump: [SPACE] \n");
 
-    //// ¸¶¿ì½º ¹æÇâÀ¸·Î ¹Ù¶óº¸°Ô
-    //Vector2 mouse_point(INPUT->GetWorldMousePos() - this->pistol->GetWorldPos());
-    //pistol->rotation.z = atan2f(mouse_point.y, mouse_point.x);
-
-    // ¹è°æ ¾÷µ¥ÀÌÆ®
+    // ë°°ê²½ ì—…ë°ì´íŠ¸
     for (int i = 0; i < number_star; i++)
         bg_star[i]->Update();
     floor->Update();
 
-    // ÇÃ·¹ÀÌ¾î ¾÷µ¥ÀÌÆ®
+    // í”Œë ˆì´ì–´ ì—…ë°ì´íŠ¸
     player->Update();   
     player->Control();
     
-    // ¹«±â ¾÷µ¥ÀÌÆ®
+    // ë¬´ê¸° ì—…ë°ì´íŠ¸
     //pistol->Update();
 
-    // Ä«¸Ş¶ó ¾÷µ¥ÀÌÆ®
+    // ì¹´ë©”ë¼ ì—…ë°ì´íŠ¸
     if (player->GetWorldPos().x != CAM->position.x
         && CAM->position.x >= -2500
         && CAM->position.x <= 2500)
@@ -113,9 +109,9 @@ void Main::Update()
 
 void Main::LateUpdate()
 {
-    //// º¼ÀÌ ¸Ê ¹ÛÀ» ¹ş¾î³¯ ¶§ Ãæµ¹Ã³¸®
+    //// ë³¼ì´ ë§µ ë°–ì„ ë²—ì–´ë‚  ë•Œ ì¶©ëŒì²˜ë¦¬
     //int map_side{ 10 }; //
-    //// xÃà
+    //// xì¶•
     //if (ball->GetWorldPos().x < -app.GetHalfWidth() + map_side)
     //{
     //    ball->SetWorldPosX(-app.GetHalfWidth() + map_side);
@@ -128,7 +124,7 @@ void Main::LateUpdate()
     //    ball->reflection_y();
     //    // ball->rotation.z = atan2f(ball->get_right().y, -ball->get_right().x);
     //}
-    //// yÃà
+    //// yì¶•
     //if (ball->GetWorldPos().y < -app.GetHalfHeight() + map_side)
     //{
     //    ball->SetWorldPosY(-app.GetHalfHeight() + map_side);

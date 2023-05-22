@@ -1,10 +1,10 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Player.h"
 #include "Gun_pistol.h"
 
 Player::Player()
 {
-    this->hand = 0;
+    this->hand = 1;
     this->speed = 250;
     this->jump_power = 150.f;
     this->jump_startPoint = this->GetWorldPos().y;
@@ -18,6 +18,8 @@ Player::Player()
 
     pistol = new Gun_pistol();
     pistol->SetParentRT(*this);
+
+    characterDirection = true;
 }
 
 Player::~Player()
@@ -40,7 +42,7 @@ void Player::Control()
         if (this->GetWorldPos().y +5.f >= jump_startPoint + this->jump_power)
             jump_status = false;
     }
-    // ÀÌµ¿
+    // ì´ë™
     //if (INPUT->KeyPress('W'))
     //    this->MoveWorldPos(UP * DELTA * this->speed);
     //if (INPUT->KeyPress('S'))
@@ -49,21 +51,21 @@ void Player::Control()
         this->MoveWorldPos(LEFT * DELTA * this->speed);
     if (INPUT->KeyPress('D'))
         this->MoveWorldPos(RIGHT * DELTA * this->speed);
-    // Á¡ÇÁ
+    // ì í”„
     if (INPUT->KeyPress(VK_SPACE) && this->GetWorldPos().y <= FLOOR)
     {
         this->jump_startPoint = this->GetWorldPos().y;
         this->jump_status = true;
     }
 
-    // °Ý¹ß
-    if (INPUT->KeyPress(VK_LBUTTON))
+    // ê²©ë°œ
+  /*  if (INPUT->KeyPress(VK_LBUTTON))
     {
         if (this->hand == 1)
             pistol->Fire(this);
-    }
+    }*/
 
-    // ¹«±â ½º¿Ò
+    // ë¬´ê¸° ìŠ¤ì™‘
     if (INPUT->KeyDown('1'))
         this->hand == 1;
 }
@@ -75,25 +77,40 @@ void Player::Control(Vector2 arrow)
 
 void Player::Update()
 {
-    // Áß·Â
+    // ì¤‘ë ¥
     if (this->GetWorldPos().y > -app.GetHalfHeight() + this->scale.y)
-        this->MoveWorldPos(DOWN * DELTA * 200.f);
+        this->MoveWorldPos(DOWN * DELTA * 250.f);
 
-    //ObCircle::Update();
+    // ë§ˆìš°ìŠ¤ì— ë”°ë¥¸ ì‹œì„ ì²˜ë¦¬
+    if (INPUT->GetWorldMousePos().x < this->GetWorldPos().x)
+        characterDirection = 1;     // LEFT
+    else if (INPUT->GetWorldMousePos().x > this->GetWorldPos().x)
+        characterDirection = 2;     // RIGHT
+    rotation.y = characterDirection == 1 ? PI : 0.0f;
+
+    // ì¡°ì¤€ì„  ë§ˆìš°ìŠ¤ ë°©í–¥ìœ¼ë¡œ ë°”ë¼ë³´ê²Œ
+    if (characterDirection == 1)        // LEFT
+    {
+        Vector2 mouse_point(INPUT->GetWorldMousePos() - this->pistol->GetWorldPos());
+        pistol->rotation.z = atan2f(mouse_point.x, mouse_point.y) + PI / 2.f;
+    }
+    else if (characterDirection == 2)    // RIGHT
+    {
+        Vector2 mouse_point(INPUT->GetWorldMousePos() - this->pistol->GetWorldPos());
+        pistol->rotation.z = atan2f(mouse_point.y, mouse_point.x);
+    }
+
+    // í”Œë ˆì´ì–´ UPDATE
     ObRect::Update();
-
-    // ÃÑ±â°¡ ¸¶¿ì½º ¹æÇâÀ¸·Î ¹Ù¶óº¸°Ô
-    Vector2 mouse_point(INPUT->GetWorldMousePos() - this->pistol->GetWorldPos());
-    pistol->rotation.z = atan2f(mouse_point.y, mouse_point.x);
+    // ë¬´ê¸°ì™€ íƒ„ UPDATE
     this->pistol->Update();
-    this->pistol->Update_Bullets();
 }
 
 void Player::Render()
 {
-    //ObCircle::Render();
+    // í”Œë ˆì´ì–´ RENDER
     ObRect::Render();
+    // ë¬´ê¸°ì™€ íƒ„ RENDER
     this->pistol->Render();
-    this->pistol->Render_Bullets();
 }
 

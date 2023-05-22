@@ -1,14 +1,50 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Gun_pistol.h"
 #include "Bullet_proto.h"
 #include "Player.h"
 
 Gun_pistol::Gun_pistol() 
-    : name("±ÇÃÑ"), damage(15), ammo_max(9999), ammo_current(this->ammo_max), ammo_speed(400.f),
+    : name("ê¶Œì´"), damage(15), ammo_max(9999), ammo_current(9999), ammo_speed(400.f),
     fire_rate(4.f), range(800.f) 
 {
-    this->scale.x = 20.f;
-    this->scale.y = 10.f;
+    this->SetLocalPosX(15.f);
+    this->SetLocalPosY(5.f);
+    this->scale.x = 25.f;
+    this->scale.y = 6.f;
+    
+    line_sight = new ObLine();
+    this->hasLineSight = true;
+}
+
+Gun_pistol::~Gun_pistol()
+{
+    delete line_sight;
+}
+
+void Gun_pistol::Update()
+{
+    ObRect::Update();
+    // ë°œì‚¬ëœ íƒ„ Update
+    Gun_pistol::Update_Bullets();
+}
+
+void Gun_pistol::Render()
+{
+    if (hasLineSight)
+    {
+        //right
+        line_sight->SetWorldPos(GetWorldPos());
+        line_sight->rotation.z = Utility::DirToRadian(GetRight());
+        line_sight->scale.x = scale.x * 20.0f;
+        line_sight->color = Color(1.0f, 1.0f, 0.0f, 1.0f);
+        line_sight->Update();
+        line_sight->Render();
+    }
+
+    ObRect::Render();
+
+    // íƒ„ Render
+    Gun_pistol::Render_Bullets();
 }
 
 bool Gun_pistol::Fire(class Player* shooter)
@@ -19,26 +55,25 @@ bool Gun_pistol::Fire(class Player* shooter)
 
     if (this->ammo_current > 0 && elapsedTime >= this->timeSinceLastTime)
     {
-        // ÃÑ±¸ À§Ä¡ °è»ê
+        // ì´êµ¬ ìœ„ì¹˜ ê³„ì‚°
         Vector2 muzzle = Vector2(this->GetWorldPos() + shooter->GetRight() * scale.x);
-        // Åº°¢ °è»ê(ÇÃ·¹ÀÌ¾î°¡ ¹Ù¶óº¸´Â ¹æÇâ)
+        // íƒ„ê° ê³„ì‚°(í”Œë ˆì´ì–´ê°€ ë°”ë¼ë³´ëŠ” ë°©í–¥)
         // float rotation_z{ atan2f(shooter->get_right().y, shooter->get_right().x) };
 
-        // Åº»ı¼º
+        // íƒ„ìƒì„±
         const Bullet_proto bullet
         (
             muzzle,
             shooter->GetRight(),
             this->ammo_speed * DELTA,
-            this->range,
-            shooter->charge_current * 5.f
+            this->range
         );
-        //º¤ÅÍ¿¡ Åº push
+        //ë²¡í„°ì— íƒ„ push
         bullets.push_back(bullet);
-        //Åº ¼ö·® °¨¼Ò
+        //íƒ„ ìˆ˜ëŸ‰ ê°ì†Œ
         this->ammo_current = max(this->ammo_current - 1, 0);
 
-        // °ø¼Ó°è»ê
+        // ê³µì†ê³„ì‚°
         this->lastShotTime = currentTime;
         this->timeSinceLastTime = 1.0f / this->fire_rate;
     }
@@ -50,7 +85,7 @@ void Gun_pistol::Update_Bullets()
 {
     for (auto& ammo : this->bullets)
     {
-        // ÅºÀÇ À§Ä¡ ÀÌµ¿
+        // íƒ„ì˜ ìœ„ì¹˜ ì´ë™
         // ammo.pos += Vector2(cosf(ammo.rotation.z), sinf(ammo.rotation.z)) * (ammo.speed);
         // ammo.pos += Vector2(0, ammo.gravity_sin);
         // ammo.gravity_sin += ammo.gravity_cos * DELTA;
@@ -61,9 +96,9 @@ void Gun_pistol::Update_Bullets()
             + ammo.gravityDir * ammo.gravityForce);
         ammo.MoveWorldPos(velocity * DELTA);
 
-        // ÅºÀÌ ¸Ê ¹ÛÀ» ¹ş¾î³µÀ¸¸é
+        // íƒ„ì´ ë§µ ë°–ì„ ë²—ì–´ë‚¬ìœ¼ë©´
         int map_side{ 10 };
-        // xÃà
+        // xì¶•
         if (ammo.GetLocalPos().x < 0 + map_side)
         {
             ammo.SetWorldPosX(0 + map_side);
@@ -76,7 +111,7 @@ void Gun_pistol::Update_Bullets()
             ammo.reflection_y();
             // ammo.rotation.z = atan2f(ammo.get_right().y, -ammo.get_right().x);
         }
-        // yÃà
+        // yì¶•
         if (ammo.GetLocalPos().y < 0 + map_side)
         {
             ammo.SetWorldPosY(0 + map_side);
@@ -90,15 +125,15 @@ void Gun_pistol::Update_Bullets()
             // ammo.rotation.z = atan2f(-ammo.get_right().y, ammo.get_right().x);
         }
 
-        // ÅºÀÇ Á¤º¸ ¾÷µ¥ÀÌÆ®
+        // íƒ„ì˜ ì •ë³´ ì—…ë°ì´íŠ¸
         ammo.Update();
 
-        // ÅºÀÇ Ã¼·ÂÀÌ 0ÀÌ¸é »èÁ¦
+        // íƒ„ì˜ ì²´ë ¥ì´ 0ì´ë©´ ì‚­ì œ
         // if (ammo.Hp == 0) ammo.traveledDistance = range;
     }
 
 
-    // ÅºÀÌ »ç°Å¸®¸¦ ¹ş¾î³µÀ¸¸é
+    // íƒ„ì´ ì‚¬ê±°ë¦¬ë¥¼ ë²—ì–´ë‚¬ìœ¼ë©´
     bullets.erase(
         std::remove_if
         (

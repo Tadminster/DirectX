@@ -1,4 +1,4 @@
-#include "framework.h"
+﻿#include "framework.h"
 
 ObLine* GameObject::axisObject = nullptr;
 ID3D11Buffer* GameObject::WVPBuffer = nullptr;

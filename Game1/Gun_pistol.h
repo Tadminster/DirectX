@@ -1,9 +1,13 @@
-#pragma once
+﻿#pragma once
 class Gun_pistol : public ObRect
 {
 public:
-	Vector2			pos;
+	// 조준선
+	ObLine* line_sight;
+	bool	hasLineSight;
 
+public:
+	// 스펙
 	std::string		name;
 	
 	int				ammo_current;
@@ -18,7 +22,11 @@ public:
 
 	std::vector<class Bullet_proto> bullets;
 
+public:
 	Gun_pistol();
+	~Gun_pistol();
+	void Update() override;
+	void Render() override;
 
 	bool			Fire(class Player* shooter);
 	virtual void	Update_Bullets();

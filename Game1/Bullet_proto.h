@@ -1,31 +1,31 @@
-#pragma once
+ï»¿#pragma once
 
 class Bullet_proto : public ObRect
 {
 protected:
 
 public:
-    Vector2         Pos_Current;            // ÇöÀç À§Ä¡(local)
-    Vector2         Pos_Initial;            // Ã³À½ ¹ß»çµÈ À§Ä¡
-    int             Hp;                     // Ã¼·Â
-    Vector2         shooting_Dir;           // ¹æÇâ
-    float           speed;                  // ¼Óµµ
-    int             Damage;                 // °ø°Ý·Â
-    float           range;                  // »çÁ¤°Å¸®
-    float           traveledDistance;       // ÀÌµ¿°Å¸®
-    float           pressPower;                 // Â÷Áö
+    Vector2         Pos_Current;            // í˜„ìž¬ ìœ„ì¹˜(local)
+    Vector2         Pos_Initial;            // ì²˜ìŒ ë°œì‚¬ëœ ìœ„ì¹˜
+    int             Hp;                     // ì²´ë ¥
+    Vector2         shooting_Dir;           // ë°©í–¥
+    float           speed;                  // ì†ë„
+    int             Damage;                 // ê³µê²©ë ¥
+    float           range;                  // ì‚¬ì •ê±°ë¦¬
+    float           traveledDistance;       // ì´ë™ê±°ë¦¬
+    float           pressPower;             // ì°¨ì§€
 
-    Vector2         gravityDir;             // Áß·Â ¹æÇâ
-    float           gravityForce;           // Áß·Â Èû
-    float           gravityWeight;          // Áß·Â °¡ÁßÄ¡
+    Vector2         gravityDir;             // ì¤‘ë ¥ ë°©í–¥
+    float           gravityForce;           // ì¤‘ë ¥ íž˜
+    float           gravityWeight;          // ì¤‘ë ¥ ê°€ì¤‘ì¹˜
 
 public:
-    Bullet_proto(Vector2 pos, Vector2 direction, float speed, float range, float charge);
+    Bullet_proto(Vector2 pos, Vector2 direction, float speed, float range);
 
-    virtual void Update() override;
-    virtual void Render() override;
+    void Update() override;
+    void Render() override;
 
-    /* ÅºÀÌ ÀÌµ¿ÇÑ °Å¸®°¡ range¸¦ ³Ñ¾ú´ÂÁö È®ÀÎ */
+    /* íƒ„ì´ ì´ë™í•œ ê±°ë¦¬ê°€ rangeë¥¼ ë„˜ì—ˆëŠ”ì§€ í™•ì¸ */
     bool hasTraveledTooFar() const { return traveledDistance >= range; }
     bool hasIntersect(class GameObject* target);
 

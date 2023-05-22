@@ -1,23 +1,23 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Bullet_proto.h"
 
 // obj_weapon_bullet::obj_weapon_bullet(Vector2 pos, float speed, float range, float rotation_z, float charging_scale)
-Bullet_proto::Bullet_proto(Vector2 pos, Vector2 direction, float speed, float range, float charge)
-    : speed(speed), range(range), traveledDistance(0.f), Damage(5), Pos_Initial(pos), Hp(1), pressPower(charge)
+Bullet_proto::Bullet_proto(Vector2 pos, Vector2 direction, float speed, float range)
+    : speed(speed), range(range), traveledDistance(0.f), Damage(5), 
+    Pos_Initial(pos), Hp(1), pressPower(100.f * DELTA)
 {
-    // ÅºÀÇ »ý¼ºÀ§Ä¡
-    this->SetLocalPosX(pos.x);
-    this->SetLocalPosY(pos.y);
+    // íƒ„ì˜ ìƒì„±ìœ„ì¹˜
+    this->SetWorldPos(pos);
 
-    // ÅºÀÇ Å©±â
+    // íƒ„ì˜ í¬ê¸°
     this->scale.x = 5.f;
     this->scale.y = 5.f;
 
-    // ÅºÀÇ °¢µµ
+    // íƒ„ì˜ ê°ë„
     // this->rotation.z = rotation_z;
     this->shooting_Dir = direction;
 
-    // Áß·Â
+    // ì¤‘ë ¥
     this->gravityDir = DOWN;
     this->gravityForce = 0.0f;
 
@@ -27,12 +27,9 @@ Bullet_proto::Bullet_proto(Vector2 pos, Vector2 direction, float speed, float ra
 
 void Bullet_proto::Update()
 {
-    this->scale.x = 5.f;
-    this->scale.y = 3.f;
-
     ObRect::Update();
 
-    // ÅºÀÌ ÀÌµ¿ÇÑ °Å¸® °è»ê
+    // íƒ„ì´ ì´ë™í•œ ê±°ë¦¬ ê³„ì‚°
     this->Pos_Current.x += speed;
     this->Pos_Current.y += speed;
     traveledDistance += std::sqrt(std::pow(speed, 2) + std::pow(speed, 2));

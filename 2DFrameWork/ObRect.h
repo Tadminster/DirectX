@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 class ObRect: public GameObject
 {
 private:
@@ -11,6 +11,6 @@ public:
 
 public:
     ObRect();
-    void Render()override;
+    void Render() override;
 };
 
