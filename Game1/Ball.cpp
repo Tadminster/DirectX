@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 #include "Ball.h"
 
 
@@ -57,10 +57,10 @@ bool Ball::hasIntersect(GameObject* target)
 
 bool Ball::collision(GameObject* target)
 {
-    // °øÀÌ ´ë»ó°ú Ãæµ¹ÇßÀ¸¸é ÀÌµ¿
+    // ê³µì´ ëŒ€ìƒê³¼ ì¶©ëŒí–ˆìœ¼ë©´ ì´ë™
     if (this->hasIntersect(target))
     {
-        // ÀÌµ¿ ÇÔ¼ö
+        // ì´ë™ í•¨ìˆ˜
         this->direction = (this->GetWorldPos() - target->GetWorldPos());
         this->speed = 50.f;
  
