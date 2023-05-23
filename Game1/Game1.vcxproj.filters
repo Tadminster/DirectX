@@ -16,6 +16,7 @@
       <Filter>GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Ob_floor.h" />
+    <ClInclude Include="Ob_movable.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -32,6 +33,7 @@
       <Filter>GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Ob_floor.cpp" />
+    <ClCompile Include="Ob_movable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="GameObject">

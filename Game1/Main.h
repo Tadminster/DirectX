@@ -1,14 +1,17 @@
-#pragma once
+ï»¿#pragma once
 #define number_star 500
 
 class Main : public Scene
 {
 private:
-	// ÁöÇü
+	// ì§€í˜•
 	class ObStar* bg_star[number_star];
 	class Ob_floor* floor;
+	
+	// ì‚¬ë¬¼
+	class Ob_movable* rect_movable;
 
-	// ÇÃ·¹ÀÌ¾î
+	// í”Œë ˆì´ì–´
 	class Player* player;
 	class Gun_pistol* pistol;
 
@@ -19,9 +22,9 @@ public:
 	Main();
 	~Main();
 	virtual void Init() override;
-	virtual void Release() override; //ÇØÁ¦
+	virtual void Release() override; //í•´ì œ
 	virtual void Update() override;
-	virtual void LateUpdate() override;//°»½Å
+	virtual void LateUpdate() override;//ê°±ì‹ 
 	virtual void Render() override;
 	virtual void ResizeScreen() override;
 };

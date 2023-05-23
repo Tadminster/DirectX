@@ -28,7 +28,7 @@ public:
 	void Update() override;
 	void Render() override;
 
-	bool			Fire(class Player* shooter);
+	virtual bool	Fire(class Player* shooter);
 	virtual void	Update_Bullets();
 	virtual void	Render_Bullets();
 

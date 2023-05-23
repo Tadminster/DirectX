@@ -17,6 +17,9 @@ Main::Main()
     }
     floor = new Ob_floor();
 
+    // 사물
+    rect_movable = new Ob_movable();
+
     // 플레이어
 	player = new Player();
 
@@ -39,6 +42,7 @@ Main::~Main()
         //delete goalpost[i];
 
     //delete ball;
+    delete player;
     delete pistol;
 }
 
