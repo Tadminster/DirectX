@@ -23,6 +23,7 @@
     <ClInclude Include="Bullet_proto.h" />
     <ClInclude Include="Gun_pistol.h" />
     <ClInclude Include="Main.h" />
+    <ClInclude Include="Ob_drag.h" />
     <ClInclude Include="Ob_floor.h" />
     <ClInclude Include="Ob_movable.h" />
     <ClInclude Include="Player.h" />
@@ -33,6 +34,7 @@
     <ClCompile Include="Bullet_proto.cpp" />
     <ClCompile Include="Gun_pistol.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Ob_drag.cpp" />
     <ClCompile Include="Ob_floor.cpp" />
     <ClCompile Include="Ob_movable.cpp" />
     <ClCompile Include="Player.cpp" />

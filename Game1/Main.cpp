@@ -3,6 +3,8 @@
 #include "Ball.h"
 #include "Gun_pistol.h"
 #include "Ob_floor.h"
+#include "Ob_movable.h"
+#include "Ob_drag.h"
 #include "Main.h"
 
 Main::Main()
@@ -19,6 +21,7 @@ Main::Main()
 
     // 사물
     rect_movable = new Ob_movable();
+    rect_drag = new Ob_drag();
 
     // 플레이어
 	player = new Player();
@@ -44,6 +47,9 @@ Main::~Main()
     //delete ball;
     delete player;
     delete pistol;
+
+    delete rect_movable;
+    delete floor;
 }
 
 void Main::Init()
@@ -69,6 +75,9 @@ void Main::Release()
 
 void Main::Update()
 {
+    ImGui::Text("ON_MOUSE: %d\n", rect_movable->OnMouse());
+
+
     ImGui::Text("CAMERA_X: %f\n", CAM->position.x);
     ImGui::Text("CAMERA_Y: %f\n", CAM->position.y); 
     ImGui::Text("CAM_SPEED: %f\n", std::abs(player->GetWorldPos().x - CAM->position.x));
@@ -88,6 +97,13 @@ void Main::Update()
         bg_star[i]->Update();
     floor->Update();
 
+    // 사물 업데이트
+    rect_movable->Update();
+    rect_movable->Control();
+    rect_movable->SetColor();
+
+    rect_drag->Update();
+    rect_drag->OnClick();
     // 플레이어 업데이트
     player->Update();   
     player->Control();
@@ -149,8 +165,11 @@ void Main::Render()
     for (int i = 0; i < number_star; i++)
         bg_star[i]->Render();
     floor->Render();
+    rect_movable->Render();
+    rect_drag->Render();
 
 	player->Render();
+
 	//for (auto& player : player)
 	//	player->Render();
 

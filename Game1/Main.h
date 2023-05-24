@@ -10,6 +10,7 @@ private:
 	
 	// 사물
 	class Ob_movable* rect_movable;
+	class Ob_drag* rect_drag;
 
 	// 플레이어
 	class Player* player;
